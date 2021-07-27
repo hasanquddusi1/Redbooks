@@ -1,0 +1,154 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    
+}
+
+.background{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-size: 100% 100%;
+    background-position: center;
+    filter: blur(2px);
+}
+
+.nav-bar{
+    position: absolute;
+    z-index: 1;
+    background-color: rgb(108, 20, 20);
+    max-height: 50px;
+    width: 100%;
+}
+
+.links{
+    float: right;
+    list-style-type: none;
+}
+
+.links li{
+    display: inline-block;
+    padding-right: 15px;
+}
+
+.links a{
+    text-decoration: none;
+    text-transform: capitalize;
+    font-size: 14px;
+    color: red
+}
+.links a:hover
+.genres a:hover{
+    color: white;
+}
+
+.logo{
+    float: left;
+    max-width: 60px;
+    max-height: 50px;
+}
+
+.genres{
+    background-color: black;
+    position: fixed;
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    top: 120px;
+    left: 12vw;
+    width: 75vw;
+    list-style: none;
+    text-align: center;
+}
+
+.genres a{
+    text-decoration: none;
+    color: red;
+}
+
+.book-shelf{
+    position: fixed;
+    display: flex;
+    flex-wrap: wrap;
+    top: 140px;
+    left: 12vw;
+    height: 76vh;
+    width: 75vw;
+    overflow-y: scroll;
+    justify-content: center;
+}
+
+.book:nth-of-type(odd){
+    background-color: grey;
+    
+}
+
+
+.overlay{
+    position: fixed;
+    opacity: .5;
+    top: 0%;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: black;
+    pointer-events: none;
+
+}
+
+#text-container{
+    display: none;
+    text-align: center;
+    padding: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    color: white;
+    background-color: white;
+}
+
+#text-container button{
+    float: right;
+}
+
+.book:nth-of-type(even){
+    background-color: rgb(90, 88, 88);
+
+}
+
+.book{
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: auto;
+    max-width: 400px;
+}
+.book-details{
+    display: flex;
+    flex-direction: column;
+}
+.book ul{
+    list-style: none;
+    color: white;
+    text-align: center;
+}
+
+.book li{
+    margin-bottom: 15px;
+}
+
+.book img{
+    max-height: 200px;
+}
+.book-details button{
+    position: relative;
+    text-decoration: none;
+    color: black;
+    background-color:red;
+    font-size: smaller;
+    padding: 8px;
+    border-radius: 8px;
+}

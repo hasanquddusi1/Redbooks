@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Edit Account</title> 
+        <link rel="stylesheet" href="https://therealredbook.s3.us-east-2.amazonaws.com/css/edit.css">
+    </head>
+    <body>
+        <div class="nav-bar">
+            <a href="https://therealredbook.s3.us-east-2.amazonaws.com/html/user_dashboard.html">
+            <img src="https://therealredbook.s3.us-east-2.amazonaws.com/red_book_logo.png" alt="logo" class="logo">
+            </a>
+            <ul class="links">
+                <li><a href="https://therealredbook.s3.us-east-2.amazonaws.com/html/contact.html">Contact Us</a></li>
+                <li><a href="https://therealredbook.s3.us-east-2.amazonaws.com/html/faq.html">FAQ</a></li>
+                <li><a href="https://therealredbook.s3.us-east-2.amazonaws.com/html/edit.html">Settings</a></li>
+            </ul>
+        </div>
+        <div class="container" id="container">
+            <img src="https://therealredbook.s3.us-east-2.amazonaws.com/red_book_logo.png" alt="logo">
+            <div class="user-container" id="user-container">
+                <input id="username" class="userName" required placeholder="Username">
+                <input id="confirm_username" class="userName"required placeholder="Re-enter Username">
+                <button class="submit" onclick="updateUsername()">Submit</button>
+            </div>
+            <button class="update-username" id="update-username" onclick="showUser()">Update Username</button>
+            <div class="pass-container" id="pass-container">
+                <input type="password" placeholder="Current Password">
+                <input id="password" type="password" placeholder="New Password">
+                <input id="confirm_password" type="password" placeholder="Retype New Password">
+                <button class="submit" onclick="updatePassword()">Submit</button>
+            </div>
+            <button class="update-password" id="update-password" onclick="showPassword()">Update Password</button>
+        </div>
+        
+        <script src="https://therealredbook.s3.us-east-2.amazonaws.com/js/edit.js"></script>
+        <script>
+            async function putUsername(newUsername){
+
+            data = {"customer_id":1, "customer_username":newUsername}
+
+            const res = await fetch('http://localhost:5000/red-books/dashboard/edit', {
+                method: 'POST',
+                mode: "no-cors",
+                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: 'same-origin', // include, *same-origin, omit
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            }
+
+            async function putPassword(newPassword){
+
+            data = {"customer_id":1, "customer_password":newPassword}
+
+            const res = await fetch('http://localhost:5000/red-books/dashboard/edit', {
+                method: 'POST',
+                mode: 'no-cors', // no-cors, *cors, same-origin
+                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: 'same-origin', // include, *same-origin, omit
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            }
+
+
+            function updateUsername(){
+            const username = document.getElementById("username").value
+            const confirmUsername = document.getElementById("confirm_username").value
+            if(username===confirmUsername){
+                putUsername(username)
+            }
+            }
+
+            function updatePassword(){
+            const password = document.getElementById("password").value
+            const confirmPassword = document.getElementById("confirm_password").value
+            if(password===confirmPassword){
+                putPassword(password)
+            }
+}
+        </script>    
+    </body>
+</html>

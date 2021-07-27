@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>
+        Red Books Login
+    </title>
+    <link rel="stylesheet" href="https://therealredbook.s3.us-east-2.amazonaws.com/css/login.css">
+
+</head>
+<body>  
+    <div class="nav-bar">
+        <a href="https://therealredbook.s3.us-east-2.amazonaws.com/html/index.html">
+        <img src="https://therealredbook.s3.us-east-2.amazonaws.com/red_book_logo.png" alt="logo" class="logo">
+        </a>
+        <ul class="links">
+            <li><a href="https://therealredbook.s3.us-east-2.amazonaws.com/html/contact.html">Contact Us</a></li>
+            <li><a href="https://therealredbook.s3.us-east-2.amazonaws.com/html/faq.html">FAQ</a></li>
+            <li><a href="https://therealredbook.s3.us-east-2.amazonaws.com/html/edit.html">Settings</a></li>
+        </ul>
+    </div>
+   
+    <img src="https://therealredbook.s3.us-east-2.amazonaws.com/stacked_books.jpeg" alt="books" class="background-books">
+    <div class="container">
+            <div class="quote">
+                <p id="quote">The more that you read, the more things you will know. The more that you learn, the more places you’ll go.</p>
+                <span class="author" id="author">
+                    <br> —Dr. Seuss
+                </span>
+            </div>
+            <img src="https://therealredbook.s3.us-east-2.amazonaws.com/book_photo.jpg" alt="login-photo" class="login-photo">
+
+        <form  action="http://localhost:5000/red-books/login" method="post" class="login-box">
+            <h1>Welcome</h1>
+            <ul class="login-error">
+            <li id="error">User name or password is incorrect!</li>
+            </ul>
+            <input type="text" name="customer_username" id="user_name" placeholder="User Name" required ></input>
+            <input type="password" name="customer_password" id="password" placeholder="Password" required></input>
+            <input type="submit" value="Login"></input>  
+        </form>
+
+    </div>
+   
+    <script>
+        const quoteText = document.getElementById("quote")
+        const author = document.getElementById("author");
+        const loginError = document.getElementById("error");
+        
+        const bookList = { 
+        1:{"quote":"The reading of all good books is like a conversation with the finest minds of past centuries", author:"—Rene Descartes"}, 
+        2:{"quote": "The more that you read, the more things you will know. The more that you learn, the more places you’ll go.", author: "—Dr. Seuss"}, 
+        3:{"quote": "A capacity, and taste, for reading gives access to whatever has already been discovered by others.", author: "—Abraham Lincoln"},
+        4:{"quote": "Reading is to the mind what exercise is to the body.", author: "—Joseph Addison"},
+        5:{"quote": "Reading is a discount ticket to everywhere.", author: "—Mary Schmich"},
+        6:{"quote": "Reading is an active, imaginative act; it takes work.", author: "—Khaled Hosseini"},
+        7:{"quote": "Books are the plane, and the train, and the road. They are the destination, and the journey. They are home.", author:"—Anna Quindlen"},
+        8:{"quote": "′Classic′ - a book which people praise and don't read.", author:"―Mark Twain"},
+        9:{"quote": "A children's story that can only be enjoyed by children is not a good children's story in the slightest.", author:"― C.S. Lewis"}
+        };
+
+        const quoteNumber = Math.floor(Math.random() * 10);
+        quoteText.innerHTML = bookList[quoteNumber]["quote"];
+        author.innerHTML = bookList[quoteNumber]["author"];
+        console.log(bookList[quoteNumber]["quote"]);
+        console.log(bookList[quoteNumber]["author"]);
+
+    </script>
+
+
+</body>
+</html>

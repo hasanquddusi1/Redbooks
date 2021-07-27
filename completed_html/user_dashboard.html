@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>
+        username's Dashboard
+    </title>
+    <link rel="stylesheet" href="resources/user_dashboard.css">
+</head>
+
+<body>
+    <img src="https://therealredbook.s3.us-east-2.amazonaws.com/dashboard_bg.jpg" alt="dashboard_bg" class="background">
+    <div class="nav-bar">
+        <a href="https://therealredbook.s3.us-east-2.amazonaws.com/html/user_dashboard.html">
+        <img src="https://therealredbook.s3.us-east-2.amazonaws.com/red_book_logo.png" alt="logo" class="logo">
+        </a>
+        <ul class="links">
+            <li><a href="https://therealredbook.s3.us-east-2.amazonaws.com/html/contact.html">Contact Us</a></li>
+            <li><a href="https://therealredbook.s3.us-east-2.amazonaws.com/html/faq.html">FAQ</a></li>
+            <li><a href="https://therealredbook.s3.us-east-2.amazonaws.com/html/edit.html">Settings</a></li>
+        </ul>
+    </div>
+    <div class="overlay"></div>
+
+    <div id="text-container">
+
+    </div>
+    <ul class="genres">
+        <li><a href="#" onclick="test('adventure')">Adventure</a></li>
+        <li><a href="#" onclick="test('western')">Western</a></li>
+        <li><a href="#" onclick="test('children')">Children's</a></li>
+        <li><a href="#" onclick="test('mystery')">Mystery</a></li>
+        <li><a href="#" onclick="test('classic')">Classics</a></li>
+    </ul>
+
+    <div id="book-shelf" class="book-shelf">
+
+    </div>
+    <script>
+
+        const bookShelf = document.getElementById("book-shelf");
+        const bookBody = document.getElementById("text-container");
+        const testpath = "http://localhost:5000/red-books/dashboard/search"
+
+
+
+        function clearDiv() {
+            while (bookShelf.firstChild) {
+                bookShelf.removeChild(bookShelf.lastChild);
+            }
+        }
+
+        function clearBook(){
+            while (bookBody.firstChild) {
+                bookBody.removeChild(bookBody.lastChild);
+            }
+            bookBody.style.display = "none"
+        }
+
+
+        function test(filter){
+        data = {genre: filter}
+        const options = { method: 'POST', body: JSON.stringify(data)};
+        
+        fetch("http://localhost:5000/red-books/dashboard/search" , options)
+        .then(response => response.json())
+        .then(data => {
+        clearDiv()
+        for(book in data)
+            {
+                constructBook(data[book]['bookName'], data[book]['bookAuthor'], data[book]['genre'], data[book]['img_path'], data[book]['file_path']);
+            };
+        })
+        .catch(() => {return});
+        };
+
+        function constructBook(title, author, genre, img_path, file_path){
+            let bookdiv = document.createElement("div");
+            bookdiv.setAttribute("class", "book");
+
+            let imgdiv = document.createElement("img");
+            imgdiv.setAttribute("src", img_path);
+            bookdiv.appendChild(imgdiv);
+
+            let bookdetails = document.createElement("div");
+            bookdetails.setAttribute("class", "book-details");
+
+            let ulElement = document.createElement("ul");
+            let titleLi = document.createElement("li");
+            titleLi.setAttribute("class", "title");
+            titleLi.innerHTML = title;
+            ulElement.appendChild(titleLi);
+            let authorLi = document.createElement("li");
+            authorLi.setAttribute("class", "author");
+            authorLi.innerHTML = author;
+            ulElement.appendChild(authorLi);
+            let genreLi = document.createElement("li");
+            genreLi.setAttribute("class", "genre");
+            genreLi.innerHTML = genre;
+            ulElement.appendChild(genreLi);
+            let readnow = document.createElement("button");
+            readnow.setAttribute("id", file_path);
+            readnow.setAttribute("onclick", "openBook(this.id)");
+            readnow.innerHTML = 'Read';
+            ulElement.appendChild(readnow);
+            bookdetails.appendChild(ulElement);
+            bookdiv.appendChild(bookdetails);
+            bookShelf.appendChild(bookdiv);
+
+        };
+
+        function openBook(url){
+            let bookexit = document.createElement("button");
+            bookexit.setAttribute('onclick', 'clearBook()')
+            bookexit.innerHTML = "exit";
+            bookBody.appendChild(bookexit);
+            let bookText = document.createElement("iframe");
+            bookText.setAttribute("src", url);
+            bookText.setAttribute('width', '640');
+            bookText.setAttribute('height', '440');
+            bookText.setAttribute('frameborder', '0');
+            bookBody.appendChild(bookText);
+            bookBody.style.display = "inline";
+        }
+    </script>
+</body>
+
+</html>
